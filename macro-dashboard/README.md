@@ -3,13 +3,27 @@
 Trang tổng hợp chỉ số kinh tế vĩ mô Việt Nam (CPI, tỷ giá, giá vàng) từ dữ liệu
 đã crawl, kèm góc nhìn hoạch định tài chính và đề xuất phân bổ tài sản tham khảo.
 
+**Live:** https://macro-dashboard-black.vercel.app
+
 ## Chạy local server
+
+Từ thư mục gốc của repo (không phải trong `macro-dashboard/`):
 
 ```
 node server.js
 ```
 
 Mặc định chạy tại http://localhost:5500 (đổi cổng bằng biến môi trường `PORT`).
+
+## Deploy lên Vercel
+
+Thư mục này là site tĩnh thuần (không có server-side logic, `index.html` tự
+`fetch()` `data.json`). Deploy trực tiếp từ thư mục `macro-dashboard/`:
+
+```
+cd macro-dashboard
+npx vercel deploy --prod
+```
 
 ## Cấu trúc
 

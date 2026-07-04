@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 5500;
-const ROOT = __dirname;
+const ROOT = path.join(__dirname, 'macro-dashboard');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
