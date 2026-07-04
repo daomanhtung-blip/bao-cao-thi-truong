@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-07-04",
+  "exchange_rate": {
+    "source": "Vietcombank - api/exchangerates",
+    "source_url": "https://www.vietcombank.com.vn/api/exchangerates?date=2026-07-04",
+    "date": "2026-07-04",
+    "rates": [
+      { "code": "USD", "name": "US Dollar", "cash": 26073.00, "transfer": 26103.00, "sell": 26463.00 },
+      { "code": "EUR", "name": "Euro", "cash": 29304.41, "transfer": 29600.41, "sell": 30849.34 },
+      { "code": "GBP", "name": "British Pound", "cash": 34219.66, "transfer": 34565.31, "sell": 35672.27 },
+      { "code": "JPY", "name": "Japanese Yen (x100)", "cash": 158.04, "transfer": 159.63, "sell": 169.87 },
+      { "code": "AUD", "name": "Australian Dollar", "cash": 17751.78, "transfer": 17931.09, "sell": 18505.34 },
+      { "code": "SGD", "name": "Singapore Dollar", "cash": 19830.78, "transfer": 20031.09, "sell": 20713.98 }
+    ]
+  },
+  "cpi": {
+    "source": "Tổng cục Thống kê (NSO) - Thông cáo báo chí CPI tháng 6/2026",
+    "source_url": "https://www.nso.gov.vn/tin-tuc-thong-ke/2026/07/chi-so-gia-tieu-dung-chi-so-gia-vang-va-chi-so-gia-do-la-my-thang-sau-quy-ii-va-6-thang-dau-nam-2026/",
+    "period": "Tháng 6 / Quý II / 6 tháng đầu năm 2026",
+    "cpi_mom_june_pct": -0.39,
+    "cpi_mom_driver": "Giá xăng dầu giảm mạnh theo giá thế giới (xăng -10.05%, dầu diezen -10.63%)",
+    "core_inflation_mom_june_pct": 0.14,
+    "core_inflation_yoy_june_pct": 4.50,
+    "cpi_avg_6m_yoy_pct": 4.38,
+    "core_inflation_avg_6m_yoy_pct": 4.12
+  },
+  "gold": {
+    "source": "NSO - Thông cáo báo chí CPI tháng 6/2026 (chỉ số giá vàng)",
+    "world_price_usd_per_oz": 4284,
+    "world_price_as_of": "2026-06-25",
+    "world_price_mom_change_pct": -7.05,
+    "domestic_gold_index_mom_june_pct": -8.46,
+    "domestic_gold_index_yoy_june_pct": 24.11,
+    "domestic_gold_index_vs_dec2025_pct": -2.72,
+    "domestic_gold_index_avg_6m_yoy_pct": 58.12
+  },
+  "usd_price_index": {
+    "source": "NSO - Thông cáo báo chí CPI tháng 6/2026 (chỉ số giá đô la Mỹ)",
+    "domestic_mom_june_pct": 0.11,
+    "domestic_yoy_june_pct": 0.57,
+    "domestic_avg_q2_yoy_pct": 0.93
+  },
+  "asset_allocation": {
+    "categories": ["Tiền gửi / tiền mặt", "Trái phiếu / CCTG", "Cổ phiếu", "Vàng", "BĐS / Khác"],
+    "profiles": [
+      { "name": "Thận trọng", "values": [40, 30, 15, 10, 5] },
+      { "name": "Cân bằng", "values": [20, 25, 35, 10, 10] },
+      { "name": "Tăng trưởng", "values": [10, 10, 55, 5, 20] }
+    ],
+    "rationale": [
+      "Lạm phát bình quân 6 tháng đầu năm đã lên 4.38% so với cùng kỳ, sát/vượt ngưỡng mục tiêu ~4% của NHNN — tiền gửi/tiền mặt thuần túy có nguy cơ lãi suất thực âm nếu lãi suất huy động không theo kịp.",
+      "Vàng trong nước tăng bình quân 58.12% so với cùng kỳ trong 6 tháng nhưng đã hạ nhiệt rõ rệt trong tháng 6 (-8.46% so tháng trước; giá thế giới -7.05%) — sau một đợt tăng nóng, rủi ro điều chỉnh ngắn hạn tăng lên nên tỷ trọng vàng được giữ vừa phải (5-10%), không khuyến nghị tăng thêm ở vùng giá cao.",
+      "Tỷ giá USD/VND tương đối ổn định (chỉ số giá đô la Mỹ tăng 0.57-0.93% so với cùng kỳ) — rủi ro tỷ giá cho nhà đầu tư gốc VND ở mức thấp trong ngắn hạn.",
+      "Lạm phát cơ bản (4.12-4.50%) vẫn cao hơn mức tăng của một số cấu phần CPI do biến động giá xăng dầu che khuất áp lực giá nền — áp lực giá cả trong nền kinh tế còn dai dẳng, ủng hộ việc duy trì một phần tài sản thực trong danh mục dài hạn."
+    ]
+  },
+  "data_gaps": [
+    "VN-Index hiện tại: chưa lấy được số liệu trực tiếp trong phiên crawl này",
+    "Lãi suất điều hành SBV (tái cấp vốn, tái chiết khấu): trang SBV chặn truy cập tự động, cần bổ sung nguồn khác",
+    "Giá dầu thô thế giới (Brent/WTI): chưa crawl trong phiên này",
+    "Giá vàng SJC trong nước theo thời gian thực: trang sjc.com.vn chặn bot bằng Cloudflare, cần nguồn thay thế (PNJ, DOJI, BTMC) hoặc trình duyệt tự động hoá có kiểm soát"
+  ]
+}

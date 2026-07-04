@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Báo cáo Kinh tế Vĩ mô — Góc nhìn Hoạch định Tài chính</title>
+<style>
+  :root {
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1: #2a78d6; /* Tiền gửi / tiền mặt */
+    --series-2: #1baf7a; /* Trái phiếu / CCTG */
+    --series-3: #eda100; /* Cổ phiếu */
+    --series-4: #008300; /* Vàng */
+    --series-5: #4a3aa7; /* BĐS / Khác */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1:      #1a1a19;
+      --page-plane:     #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1: #3987e5;
+      --series-2: #199e70;
+      --series-3: #c98500;
+      --series-4: #008300;
+      --series-5: #9085e9;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page-plane);
+    color: var(--text-primary);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 80px; }
+  header.page-header { margin-bottom: 28px; }
+  h1 { font-size: 1.6rem; margin: 0 0 6px; }
+  .subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+  .meta { color: var(--text-muted); font-size: 0.82rem; margin-top: 4px; }
+  h2 { font-size: 1.15rem; margin: 40px 0 14px; }
+  section { margin-bottom: 8px; }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .stat-tile {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .stat-tile .label { font-size: 0.8rem; color: var(--text-secondary); }
+  .stat-tile .value { font-size: 1.9rem; font-weight: 600; margin: 4px 0 2px; }
+  .stat-tile .delta { font-size: 0.82rem; color: var(--text-secondary); }
+  .stat-tile .foot { font-size: 0.72rem; color: var(--text-muted); margin-top: 8px; }
+
+  /* narrative */
+  .narrative { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .narrative p { margin: 0 0 12px; font-size: 0.94rem; }
+  .narrative p:last-child { margin-bottom: 0; }
+
+  /* exchange rate table */
+  table { width: 100%; border-collapse: collapse; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: right; padding: 10px 14px; font-size: 0.88rem; border-bottom: 1px solid var(--gridline); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
+  th { color: var(--text-muted); font-weight: 500; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  tr:last-child td { border-bottom: none; }
+
+  /* allocation chart */
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; font-size: 0.82rem; color: var(--text-secondary); }
+  .legend .swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  .alloc-chart { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .alloc-row { margin-bottom: 22px; }
+  .alloc-row:last-child { margin-bottom: 0; }
+  .alloc-row .row-label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+  .stack { display: flex; height: 24px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .seg { height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
+  .seg .seg-label { font-size: 0.72rem; color: #fff; font-weight: 600; white-space: nowrap; }
+  .rationale ul { margin: 0; padding-left: 20px; font-size: 0.9rem; }
+  .rationale li { margin-bottom: 10px; }
+  .rationale li:last-child { margin-bottom: 0; }
+
+  .gap-list { font-size: 0.88rem; color: var(--text-secondary); }
+  .gap-list li { margin-bottom: 6px; }
+
+  .disclaimer {
+    margin-top: 40px; padding: 14px 18px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface-1);
+    font-size: 0.82rem; color: var(--text-muted);
+  }
+  a { color: var(--series-1); }
+
+  .table-view { margin-top: 16px; font-size: 0.85rem; }
+  .table-view summary { cursor: pointer; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-header">
+    <h1>Báo cáo Kinh tế Vĩ mô Việt Nam</h1>
+    <div class="subtitle">Góc nhìn hoạch định tài chính cá nhân — tổng hợp từ dữ liệu công khai đã crawl</div>
+    <div class="meta" id="meta-line"></div>
+  </header>
+
+  <section>
+    <h2>Các chỉ số chính</h2>
+    <div class="kpi-row" id="kpi-row"></div>
+  </section>
+
+  <section>
+    <h2>Tỷ giá tham khảo (Vietcombank)</h2>
+    <table id="fx-table">
+      <thead><tr><th>Ngoại tệ</th><th>Tiền mặt</th><th>Chuyển khoản</th><th>Bán ra</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Góc nhìn hoạch định tài chính</h2>
+    <div class="narrative">
+      <p>Lạm phát bình quân 6 tháng đầu năm 2026 ở mức <strong>4.38% so với cùng kỳ</strong>, sát ngưỡng mục tiêu điều hành quanh 4% — trong khi lạm phát cơ bản (loại trừ giá lương thực, năng lượng và mặt hàng do nhà nước quản lý) bình quân <strong>4.12%</strong>, cho thấy áp lực giá nền vẫn hiện hữu dù CPI tháng 6 giảm nhờ giá xăng dầu hạ.</p>
+      <p>Giá vàng trong nước đã có một đợt tăng rất mạnh trong 6 tháng đầu năm (<strong>bình quân +58.12% so với cùng kỳ</strong>), nhưng tháng 6 ghi nhận điều chỉnh giảm <strong>8.46%</strong> so với tháng 5, đồng pha với giá vàng thế giới giảm <strong>7.05%</strong>. Đây là tín hiệu cần thận trọng với việc mua đuổi vàng ở vùng giá cao sau một chu kỳ tăng nóng.</p>
+      <p>Tỷ giá USD/VND tương đối ổn định, chỉ số giá đô la Mỹ trong nước chỉ tăng <strong>0.57%–0.93%</strong> so với cùng kỳ — rủi ro tỷ giá đối với nhà đầu tư gốc VND hiện ở mức thấp, chưa tạo áp lực lớn phải phòng ngừa bằng tài sản ngoại tệ.</p>
+      <p>Hàm ý cho việc lập kế hoạch tài chính cá nhân: với lạm phát quanh 4%, tiền gửi/tiền mặt thuần túy có nguy cơ lãi suất thực âm nếu lãi suất huy động không theo kịp — nên cân nhắc phân bổ một phần vào tài sản có khả năng vượt lạm phát (cổ phiếu, bất động sản) theo mức độ chấp nhận rủi ro, đồng thời giữ vàng ở tỷ trọng phòng thủ vừa phải thay vì tỷ trọng lớn sau đợt tăng giá vừa qua.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Đề xuất phân bổ tài sản (tham khảo)</h2>
+    <div class="legend" id="legend"></div>
+    <div class="alloc-chart" id="alloc-chart"></div>
+    <details class="table-view">
+      <summary>Xem dạng bảng</summary>
+      <table id="alloc-table" style="margin-top:10px;">
+        <thead><tr><th>Khẩu vị rủi ro</th><th>Tiền gửi/tiền mặt</th><th>Trái phiếu/CCTG</th><th>Cổ phiếu</th><th>Vàng</th><th>BĐS/Khác</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </details>
+    <div class="narrative rationale" style="margin-top:16px;">
+      <ul id="rationale-list"></ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dữ liệu còn thiếu (cần mở rộng crawler)</h2>
+    <ul class="gap-list" id="gap-list"></ul>
+  </section>
+
+  <div class="disclaimer">
+    Báo cáo này được tổng hợp tự động từ dữ liệu công khai (Vietcombank, Tổng cục Thống kê) và mang tính chất
+    tham khảo / giáo dục. Đây <strong>không phải</strong> là tư vấn đầu tư cá nhân hóa. Vui lòng tham khảo ý kiến
+    chuyên gia tài chính được cấp phép và xem xét tình hình tài chính, mục tiêu, khẩu vị rủi ro cụ thể của bạn trước khi
+    ra quyết định đầu tư.
+  </div>
+
+</div>
+
+<script>
+const seriesColors = ['var(--series-1)','var(--series-2)','var(--series-3)','var(--series-4)','var(--series-5)'];
+
+fetch('data.json').then(r => r.json()).then(render);
+
+function fmtPct(v, digits=2) {
+  const sign = v > 0 ? '+' : '';
+  return sign + v.toFixed(digits) + '%';
+}
+
+function render(data) {
+  document.getElementById('meta-line').textContent =
+    `Cập nhật: ${data.generated_at} · Nguồn: Vietcombank, Tổng cục Thống kê (NSO)`;
+
+  // KPI tiles
+  const kpis = [
+    {
+      label: 'CPI bình quân 6 tháng (so cùng kỳ)',
+      value: fmtPct(data.cpi.cpi_avg_6m_yoy_pct),
+      delta: `Lạm phát cơ bản 6T: ${fmtPct(data.cpi.core_inflation_avg_6m_yoy_pct)}`,
+      foot: data.cpi.source
+    },
+    {
+      label: 'CPI tháng 6 (so tháng trước)',
+      value: fmtPct(data.cpi.cpi_mom_june_pct),
+      delta: data.cpi.cpi_mom_driver,
+      foot: data.cpi.source
+    },
+    {
+      label: 'USD/VND bán ra (Vietcombank)',
+      value: data.exchange_rate.rates.find(r => r.code === 'USD').sell.toLocaleString('vi-VN') + ' đ',
+      delta: `Chỉ số giá USD, bình quân Q2 so cùng kỳ: ${fmtPct(data.usd_price_index.domestic_avg_q2_yoy_pct)}`,
+      foot: data.exchange_rate.source + ' · ' + data.exchange_rate.date
+    },
+    {
+      label: 'Giá vàng trong nước (bình quân 6T so cùng kỳ)',
+      value: fmtPct(data.gold.domestic_gold_index_avg_6m_yoy_pct),
+      delta: `Tháng 6 so tháng 5: ${fmtPct(data.gold.domestic_gold_index_mom_june_pct)} (đã hạ nhiệt)`,
+      foot: data.gold.source
+    },
+    {
+      label: 'Giá vàng thế giới',
+      value: '$' + data.gold.world_price_usd_per_oz.toLocaleString('en-US') + '/oz',
+      delta: `So tháng trước (đến ${data.gold.world_price_as_of}): ${fmtPct(data.gold.world_price_mom_change_pct)}`,
+      foot: data.gold.source
+    },
+    {
+      label: 'Lạm phát cơ bản tháng 6 (so cùng kỳ)',
+      value: fmtPct(data.cpi.core_inflation_yoy_june_pct),
+      delta: `So tháng trước: ${fmtPct(data.cpi.core_inflation_mom_june_pct)}`,
+      foot: data.cpi.source
+    }
+  ];
+  const kpiRow = document.getElementById('kpi-row');
+  kpiRow.innerHTML = kpis.map(k => `
+    <div class="stat-tile">
+      <div class="label">${k.label}</div>
+      <div class="value">${k.value}</div>
+      <div class="delta">${k.delta}</div>
+      <div class="foot">${k.foot}</div>
+    </div>
+  `).join('');
+
+  // FX table
+  const fxBody = document.querySelector('#fx-table tbody');
+  fxBody.innerHTML = data.exchange_rate.rates.map(r => `
+    <tr>
+      <td>${r.code} — ${r.name}</td>
+      <td>${r.cash.toLocaleString('vi-VN')}</td>
+      <td>${r.transfer.toLocaleString('vi-VN')}</td>
+      <td>${r.sell.toLocaleString('vi-VN')}</td>
+    </tr>
+  `).join('');
+
+  // Asset allocation
+  const alloc = data.asset_allocation;
+  const legend = document.getElementById('legend');
+  legend.innerHTML = alloc.categories.map((c, i) =>
+    `<span><span class="swatch" style="background:${seriesColors[i]}"></span>${c}</span>`
+  ).join('');
+
+  const chart = document.getElementById('alloc-chart');
+  chart.innerHTML = alloc.profiles.map(p => `
+    <div class="alloc-row">
+      <div class="row-label">${p.name}</div>
+      <div class="stack">
+        ${p.values.map((v, i) => `
+          <div class="seg" style="width:${v}%; background:${seriesColors[i]}">
+            ${v >= 12 ? `<span class="seg-label">${v}%</span>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const allocTableBody = document.querySelector('#alloc-table tbody');
+  allocTableBody.innerHTML = alloc.profiles.map(p => `
+    <tr><td>${p.name}</td>${p.values.map(v => `<td>${v}%</td>`).join('')}</tr>
+  `).join('');
+
+  document.getElementById('rationale-list').innerHTML =
+    alloc.rationale.map(r => `<li>${r}</li>`).join('');
+
+  document.getElementById('gap-list').innerHTML =
+    data.data_gaps.map(g => `<li>${g}</li>`).join('');
+}
+</script>
+</body>
+</html>
